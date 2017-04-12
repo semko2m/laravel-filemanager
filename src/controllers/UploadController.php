@@ -62,7 +62,8 @@ class UploadController extends LfmController
                 $this->makeThumb($new_filename);
             } else {
                 chmod($file->path(), 0644); // TODO configurable
-                File::move($file->path(), $new_file_path);
+//                 File::move($file->path(), $new_file_path); This make problems on laravel servers. Uploaded file have permision 600 and noone can see it
+                   move_uploaded_file ($file->path(), $new_file_path); //use this insted
             }
         } catch (\Exception $e) {
             return $this->error('invalid');
